@@ -46,7 +46,24 @@ my_tickets_view = MyTicketsView.as_view()
 class ProjectListView(ListView):
     model = Project
     template_name = "site/project_list.html"
+    own_projects = None
 
+    def get_queryset(self):
+        all_projects = super(ListView, self).get_queryset()
+        return all_projects.exclude(id__in=[x.id for x in self.get_own_projects()])
+
+    def get_own_projects(self):
+        if not self.own_projects:
+            # Since there's no join in app engine, this may be the only way to get assigned project easily
+            self.own_projects = [x.project for x in self.request.user.tickets.all()]
+
+        return self.own_projects
+
+    def get_context_data(self, **kwargs):
+        context = super(ProjectListView, self).get_context_data(**kwargs)
+        context['own_projects'] = self.get_own_projects()
+        print self.get_own_projects()
+        return context
 
 project_list_view = ProjectListView.as_view()
 
