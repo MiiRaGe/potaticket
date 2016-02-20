@@ -1,5 +1,5 @@
 [run]
-omit = sitepackages/*, wsgi.py
+omit = sitepackages/*, wsgi.py, tests.py
 source = tracker
 cover_pylib = false
 
