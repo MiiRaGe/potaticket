@@ -3,7 +3,7 @@ from django.template import TemplateSyntaxError
 from django.test import RequestFactory
 from django_webtest import WebTest
 
-from tracker.site.views import update_project_view
+from tracker.site.views import update_project_view, create_ticket_view
 from tracker.site.factories import ProjectFactory
 
 
@@ -19,6 +19,19 @@ class ProjectTest(TestCase):
         request = self.rf.get('/projects/%s/edit/' % self.project.id)
         request.user = self.user
         r = update_project_view(request, project_id=self.project.id)
+        self.assertEqual(r.status_code, 200)
+        try:
+            r.render()
+        except TemplateSyntaxError:
+            raise AssertionError('Template cannot render properly')
+        self.assertIn(u'Edit', r.content.decode('utf8'))
+
+    def test_project_create_ticket(self):
+        # I'm unsure how to test with logged user using djangoae
+        # Using request factory to bypass that.
+        request = self.rf.get('/projects/%s/tickets/create' % self.project.id)
+        request.user = self.user
+        r = create_ticket_view(request, project_id=self.project.id)
         self.assertEqual(r.status_code, 200)
         try:
             r.render()
