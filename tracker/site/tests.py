@@ -37,6 +37,9 @@ class ProjectWebTest(WebTest):
         self.assertIn(self.project.title, projects_list)
 
         # Now click on the title to access details
-        project_details = projects_list.click(self.project.title)
+        try:
+            project_details = projects_list.click(self.project.title)
+        except IndexError:
+            raise AssertionError('%s is not a clickable link in the page' % self.project.title)
         # Not ideal as using string which can change.
         self.assertIn('Create ticket', project_details)
