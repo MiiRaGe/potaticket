@@ -13,7 +13,7 @@
 			<tbody>
 				{% for project in object_list %}
 				<tr>
-					<td><a href="{% url "project-detail" project_id=project.id %}">{{ project.title }}</a></td>
+					<td><a href="{% url "project-detail" project_id=project.id %}">{{ project.title|truncatechars:50 }}</a></td>
 					<td>
 						<a href="{% url "project-update" project_id=project.pk %}">
 							<i class="fi-pencil"></i>
