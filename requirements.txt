@@ -9,5 +9,4 @@ six
 django-extensions
 crispy-forms-foundation
 pytest
-pytest-django
 pytest-pep8
