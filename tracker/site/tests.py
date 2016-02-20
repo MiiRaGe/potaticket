@@ -1,6 +1,7 @@
 from djangae.test import TestCase
 from django.template import TemplateSyntaxError
 from django.test import RequestFactory
+from django_webtest import WebTest
 
 from tracker.site.views import update_project_view
 from tracker.site.factories import ProjectFactory
@@ -24,3 +25,21 @@ class ProjectTest(TestCase):
         except TemplateSyntaxError:
             raise AssertionError('Template cannot render properly')
         self.assertIn(u'Edit', r.content.decode('utf8'))
+
+
+class ProjectWebTest(WebTest):
+    def setUp(self):
+        self.project = ProjectFactory.create()
+        self.user = self.project.created_by
+
+    def test_project_details(self):
+        projects_list = self.app.get('/projects/', user=self.user.username)
+        self.assertIn(self.project.title, projects_list)
+
+        # Now click on the title to access details
+        try:
+            project_details = projects_list.click(self.project.title)
+        except IndexError:
+            raise AssertionError('%s is not a clickable link in the page' % self.project.title)
+        # Not ideal as using string which can change.
+        self.assertIn('Create ticket', project_details)
