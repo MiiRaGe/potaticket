@@ -10,4 +10,3 @@ django-extensions
 crispy-forms-foundation
 pytest
 pytest-pep8
-coveralls
