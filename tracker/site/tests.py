@@ -18,9 +18,9 @@ class ProjectTest(TestCase):
         request = self.rf.get('/projects/%s/edit/' % self.project.id)
         request.user = self.user
         r = update_project_view(request, project_id=self.project.id)
-        assert r.status_code == 200
+        self.assertEqual(r.status_code, 200)
         try:
             r.render()
         except TemplateSyntaxError:
             raise AssertionError('Template cannot render properly')
-        assert u'Edit' in r.content.decode('utf8')
+        self.assertIn(u'Edit', r.content.decode('utf8'))
