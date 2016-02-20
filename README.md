@@ -1,6 +1,10 @@
 
 # Potato Backend Developer Test
 
+[![Build Status](https://travis-ci.org/MiiRaGe/potaticket.svg?branch=master)](https://travis-ci.org/MiiRaGe/potaticket)
+
+[![Coverage Status](https://coveralls.io/repos/github/MiiRaGe/potaticket/badge.svg?branch=master)](https://coveralls.io/github/MiiRaGe/potaticket?branch=master)
+
 This is a basic Django project which is designed to provide you with a few challenges to demonstrate your ability.
 
 The application is a ticketing application. It stores tickets within projects and allows users to be assigned to these tickets.
