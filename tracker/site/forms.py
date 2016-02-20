@@ -7,6 +7,7 @@ from .models import Project, Ticket
 
 
 class BaseTrackerForm(FoundationModelForm):
+
     def __init__(self, user=None, title=None, *args, **kwargs):
         self.title = title
         self.user = user
@@ -33,6 +34,7 @@ class BaseTrackerForm(FoundationModelForm):
 
 
 class ProjectForm(BaseTrackerForm):
+
     class Meta:
         model = Project
         fields = ('title',)
@@ -52,8 +54,8 @@ class TicketForm(BaseTrackerForm):
         self.project = project
         super(TicketForm, self).__init__(*args, **kwargs)
 
-
         self.fields['assignees'].queryset = get_user_model().objects.all()
+
     def pre_save(self, instance):
         instance.created_by = self.user
         instance.project = self.project

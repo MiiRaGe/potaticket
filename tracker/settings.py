@@ -8,7 +8,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.6/ref/settings/
 """
 
-from djangae.settings_base import * #Set up some AppEngine specific stuff
+from djangae.settings_base import *  # Set up some AppEngine specific stuff
 from django.core.urlresolvers import reverse_lazy
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -37,7 +37,7 @@ INTERNAL_IPS = (
 # Application definition
 
 INSTALLED_APPS = (
-    'djangae', # Djangae needs to come before django apps in django 1.7 and above
+    'djangae',  # Djangae needs to come before django apps in django 1.7 and above
     'django.contrib.admin',
     'django.contrib.auth',
     'djangae.contrib.gauth.datastore',
