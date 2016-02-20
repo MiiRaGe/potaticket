@@ -61,3 +61,8 @@ Can you create a solution to solve this problem?  There is no right or wrong sol
 - Added config file to check for pep8:
 
     - ```py.test --pep8```
+
+- Added clickable link for accessing project detail in project list.
+- Added continuous integration and coverage (with travis-ci and coveralls respectively),
+    - the deploy for travis-ci goes through but the website goes down...
+    - Will fix it, if time.
