@@ -54,3 +54,6 @@ Can you create a solution to solve this problem?  There is no right or wrong sol
 ## Side tasks
 
 - Upgraded to django 1.8
+- Added config file to check for pep8:
+
+    - ```py.test --pep8```
