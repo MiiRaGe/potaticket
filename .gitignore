@@ -3,3 +3,4 @@
 sitepackages
 *.pyc
 .cache
+.coverage
