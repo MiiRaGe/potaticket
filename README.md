@@ -50,3 +50,7 @@ Pages seem to need a refresh after updating an object in the application
 This is due to the fact that the Google App Engine datastore is an 'eventually consistant' database. Once an entity is saved some data retrieval operations may not immediately reflect this change. To read more about this see the Google App Engine [Datastore](https://cloud.google.com/appengine/docs/python/datastore/) documentation.
 
 Can you create a solution to solve this problem?  There is no right or wrong solution.
+
+## Side tasks
+
+- Upgraded to django 1.8
