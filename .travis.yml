@@ -5,5 +5,5 @@ python:
 # command to install dependencies
 install: "./install_deps"
 # command to run tests
-script: py.test --cov=.
+script: python manage.py test
 after_success: coveralls
