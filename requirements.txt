@@ -11,3 +11,4 @@ crispy-forms-foundation
 pytest
 pytest-pep8
 factory-boy
+django-webtest
