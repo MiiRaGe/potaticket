@@ -1,10 +1,11 @@
 from djangae.test import TestCase
+from django.http import Http404
 from django.template import TemplateSyntaxError
 from django.test import RequestFactory
 from django_webtest import WebTest
 
-from tracker.site.views import update_project_view, create_ticket_view
-from tracker.site.factories import ProjectFactory
+from tracker.site.views import update_project_view, update_ticket_view, create_ticket_view
+from tracker.site.factories import ProjectFactory, TicketFactory
 
 
 class ProjectTest(TestCase):
@@ -38,6 +39,24 @@ class ProjectTest(TestCase):
         except TemplateSyntaxError:
             raise AssertionError('Template cannot render properly')
         self.assertIn(u'Submit', r.content.decode('utf8'))
+
+
+class TicketTest(TestCase):
+    def setUp(self):
+        self.ticket = TicketFactory.create()
+        self.user = self.ticket.created_by
+        self.project = self.ticket.project
+        self.rf = RequestFactory()
+
+    def test_switch_ticket_ownership(self):
+        # I'm unsure how to test with logged user using djangoae
+        # Using request factory to bypass that.
+        project2 = ProjectFactory.create()
+        self.assertNotEqual(project2.id, self.project.id)
+
+        request = self.rf.get('/projects/%s/tickets/%s/edit' % (project2.id, self.ticket.id))
+        request.user = self.user
+        self.assertRaises(Http404, update_ticket_view, request, project_id=project2.id, ticket_id=self.ticket.id)
 
 
 class ProjectWebTest(WebTest):
