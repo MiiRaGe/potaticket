@@ -130,7 +130,7 @@ class UpdateTicketView(ProjectContextMixin, UpdateView):
     template_name = "site/ticket_form.html"
 
     def get_object(self, queryset=None):
-        queryset = self.get_queryset().filter(project=self.get_project())
+        queryset = self.get_queryset().filter(project_id=self.get_project().id)
         return super(UpdateTicketView, self).get_object(queryset=queryset)
 
     def get_success_url(self):
