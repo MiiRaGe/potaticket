@@ -23,4 +23,4 @@ class ProjectTest(TestCase):
             r.render()
         except TemplateSyntaxError:
             raise AssertionError('Template cannot render properly')
-        assert u'Edit' in r.content
+        assert u'Edit' in r.content.decode('utf8')
