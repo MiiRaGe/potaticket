@@ -3,7 +3,7 @@
 {% block content %}
 <div class="large-12 large-centered columns">
 	<div class="row">
-		<h2>{{ project.title }} <small><a href="{% url "project-update" project_id=project.pk %}">edit</a></small></h2>
+		<h2>{{ project.title|truncatechars:50 }} <small><a href="{% url "project-update" project_id=project.pk %}">edit</a></small></h2>
 	</div>
 	<div class="row">
 		<table>
@@ -17,7 +17,7 @@
 			<tbody>
 				{% for ticket in tickets %}
 				<tr>
-					<td>{{ ticket.title }}</td>
+					<td>{{ ticket.title|truncatechars:50 }}</td>
 					<td>
 					{% for user in ticket.assignees.all %}
 						{{ user.email }}{% if not forloop.last %},{% endif %}

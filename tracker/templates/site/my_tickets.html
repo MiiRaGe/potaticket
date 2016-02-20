@@ -8,9 +8,9 @@
 			{% for ticket in tickets %}
 				<div class="large-3 medium-6 small-12 columns{% if forloop.last %} end{% endif %}">
 					<div class="panel">
-						<h5><a href="{% url "ticket-update" project_id=ticket.project_id ticket_id=ticket.pk %}">{{ ticket.project.title }}: {{ ticket.title }}</a></h5>
+						<h5 class="overflow-break-word"><a href="{% url "ticket-update" project_id=ticket.project_id ticket_id=ticket.pk %}">{{ ticket.project.title|truncatechars:50 }}: {{ ticket.title|truncatechars:50 }}</a></h5>
 						<hr>
-						<p>{{ ticket.description }}</p>
+						<p class="overflow-break-word">{{ ticket.description }}</p>
 						<small>Last updated: {{ ticket.modified }}</small>
 					</div>
 				</div>
