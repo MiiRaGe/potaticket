@@ -37,7 +37,7 @@ class ProjectTest(TestCase):
             r.render()
         except TemplateSyntaxError:
             raise AssertionError('Template cannot render properly')
-        self.assertIn(u'Edit', r.content.decode('utf8'))
+        self.assertIn(u'Submit', r.content.decode('utf8'))
 
 
 class ProjectWebTest(WebTest):
