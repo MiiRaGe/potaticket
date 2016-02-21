@@ -1,9 +1,10 @@
 from djangae.test import TestCase
 from django.http import Http404
 from django.template import TemplateSyntaxError
-from django.test import RequestFactory
+from django.test import RequestFactory, override_settings
 from django_webtest import WebTest
 
+from tracker.checks import check_csp_is_not_report_only, check_session_csrf_enabled
 from tracker.site.models import Ticket
 from tracker.site.views import update_project_view, update_ticket_view, create_ticket_view, delete_ticket_view
 from tracker.site.factories import ProjectFactory, TicketFactory
@@ -95,3 +96,21 @@ class ProjectWebTest(WebTest):
             raise AssertionError('%s is not a clickable link in the page' % self.project.title)
         # Not ideal as using string which can change.
         self.assertIn('Create ticket', project_details)
+
+
+class CheckTests(TestCase):
+    @override_settings(MIDDLEWARE_CLASSES=[])
+    def test_check_missing_session_middleware(self):
+        self.assertEqual(check_session_csrf_enabled(), ['SESSION_CSRF_DISABLED'])
+
+    @override_settings(CSP_REPORT_ONLY=True)
+    def test_check_missing_csp_report_only_setting(self):
+        self.assertEqual(check_csp_is_not_report_only(), ['CSP_REPORT_ONLY_ENABLED'])
+
+    @override_settings(MIDDLEWARE_CLASSES=['session_csrf.CsrfMiddleware'])
+    def test_check_middleware_csrf_is_present(self):
+        self.assertEqual(check_session_csrf_enabled(), [])
+
+    @override_settings(CSP_REPORT_ONLY=False)
+    def test_check_csp_report_is_missing(self):
+        self.assertEqual(check_csp_is_not_report_only(), [])
