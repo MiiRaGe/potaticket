@@ -17,7 +17,8 @@
                     <thead>
                     <tr>
                         <th width="1200">Title</th>
-                        <th width="1200">Assigned</th>
+                        <th>Assigned</th>
+                        <th></th>
                         <th></th>
                     </tr>
                     </thead>
@@ -38,6 +39,13 @@
 
                                     </i>
                                 </a>
+                            </td>
+                            <td>
+                                <form method="post"
+                                      action="{% url "ticket-delete" project_id=project.pk ticket_id=ticket.pk %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="delete-ticket-button button fi-x"></button>
+                                </form>
                             </td>
                         </tr>
                     {% endfor %}

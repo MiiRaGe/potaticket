@@ -4,7 +4,8 @@ from django.template import TemplateSyntaxError
 from django.test import RequestFactory
 from django_webtest import WebTest
 
-from tracker.site.views import update_project_view, update_ticket_view, create_ticket_view
+from tracker.site.models import Ticket
+from tracker.site.views import update_project_view, update_ticket_view, create_ticket_view, delete_ticket_view
 from tracker.site.factories import ProjectFactory, TicketFactory
 
 
@@ -57,6 +58,25 @@ class TicketTest(TestCase):
         request = self.rf.get('/projects/%s/tickets/%s/edit' % (project2.id, self.ticket.id))
         request.user = self.user
         self.assertRaises(Http404, update_ticket_view, request, project_id=project2.id, ticket_id=self.ticket.id)
+
+    def test_ticket_edit(self):
+        # I'm unsure how to test with logged user using djangoae
+        # Using request factory to bypass that.
+        request = self.rf.get('/projects/%s/tickets/%s/edit' % (self.project.id, self.ticket.id))
+        request.user = self.user
+        r = update_ticket_view(request, project_id=self.project.id, ticket_id=self.ticket.id)
+        self.assertEqual(r.status_code, 200)
+        r.render()
+        self.assertIn(u'Submit', r.content.decode('utf8'))
+
+    def test_ticket_delete(self):
+        # I'm unsure how to test with logged user using djangoae
+        # Using request factory to bypass that.
+        request = self.rf.post('/projects/%s/tickets/%s/delete' % (self.project.id, self.ticket.id))
+        request.user = self.user
+        r = delete_ticket_view(request, project_id=self.project.id, ticket_id=self.ticket.id)
+        self.assertEqual(r.status_code, 302)
+        self.assertFalse(Ticket.objects.filter(id=self.ticket.id).exists())
 
 
 class ProjectWebTest(WebTest):
