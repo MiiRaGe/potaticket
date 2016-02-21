@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var concat = require('gulp-concat');
+var watch = require('gulp-watch');
 
 var baseSrcDir = 'tracker/static-dev';
 var baseDestDir = 'tracker/static';
@@ -45,5 +46,9 @@ gulp.task('copy-js', function () {
         .pipe(gulp.dest(baseDestDir + '/js/'));
 });
 
+gulp.task('watch', ['build-styles'], function() {
+	gulp.watch(baseSrcDir + '/scss/*.scss', ['build-styles']);
+});
+
 gulp.task('build', ['build-styles', 'copy-styles', 'copy-js', 'concat-js']);
-gulp.task('default', ['build-styles']);
+gulp.task('default', ['watch']);
