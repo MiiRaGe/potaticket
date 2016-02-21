@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 
 from crispy_forms_foundation.forms import FoundationModelForm
+from django.forms.widgets import SelectMultiple
 
 from .models import Project, Ticket
 
@@ -43,8 +44,13 @@ class ProjectForm(BaseTrackerForm):
         instance.created_by = self.user
 
 
+class AssigneeChoiceField(forms.ModelMultipleChoiceField):
+    def label_from_instance(self, obj):
+        return obj.email
+
+
 class TicketForm(BaseTrackerForm):
-    assignees = forms.ModelMultipleChoiceField(queryset=None, required=False)
+    assignees = AssigneeChoiceField(queryset=None, required=False)
 
     class Meta:
         model = Ticket
