@@ -25,10 +25,7 @@ class ProjectTest(TestCase):
         request.user = self.user
         r = update_project_view(request, project_id=self.project.id)
         self.assertEqual(r.status_code, 200)
-        try:
-            r.render()
-        except TemplateSyntaxError:
-            raise AssertionError('Template cannot render properly')
+        r.render()
         self.assertIn(u'Edit', r.content.decode('utf8'))
 
     def test_project_create_ticket(self):
@@ -38,10 +35,7 @@ class ProjectTest(TestCase):
         request.user = self.user
         r = create_ticket_view(request, project_id=self.project.id)
         self.assertEqual(r.status_code, 200)
-        try:
-            r.render()
-        except TemplateSyntaxError:
-            raise AssertionError('Template cannot render properly')
+        r.render()
         self.assertIn(u'Submit', r.content.decode('utf8'))
 
     def test_project_create_get(self):
@@ -123,10 +117,8 @@ class ProjectWebTest(WebTest):
         self.assertIn(self.project.title, projects_list)
 
         # Now click on the title to access details
-        try:
-            project_details = projects_list.click(self.project.title)
-        except IndexError:
-            raise AssertionError('%s is not a clickable link in the page' % self.project.title)
+        project_details = projects_list.click(self.project.title)
+
         # Not ideal as using string which can change.
         self.assertIn('Create ticket', project_details)
 
