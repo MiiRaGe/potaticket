@@ -62,7 +62,6 @@ class ProjectListView(ListView):
     def get_context_data(self, **kwargs):
         context = super(ProjectListView, self).get_context_data(**kwargs)
         context['own_projects'] = self.get_own_projects()
-        print self.get_own_projects()
         return context
 
 project_list_view = ProjectListView.as_view()
