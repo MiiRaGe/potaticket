@@ -18,6 +18,10 @@ class ProjectTest(TestCase):
         self.user = self.project.created_by
         self.rf = RequestFactory()
 
+    def test_projects_unauthenticated(self):
+        r = self.client.get('/projects/')
+        self.assertEquals(r.status_code, 200)
+
     def test_project_edit(self):
         # I'm unsure how to test with logged user using djangoae
         # Using request factory to bypass that.

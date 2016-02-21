@@ -50,10 +50,12 @@ class ProjectListView(ListView):
 
     def get_queryset(self):
         all_projects = super(ListView, self).get_queryset()
-        return all_projects.exclude(id__in=[x.id for x in self.get_own_projects()])
+        if self.get_own_projects():
+            all_projects = all_projects.exclude(id__in=[x.id for x in self.get_own_projects()])
+        return all_projects
 
     def get_own_projects(self):
-        if not self.own_projects:
+        if not self.own_projects and self.request.user.is_authenticated():
             # Since there's no join in app engine, this may be the only way to get assigned project easily
             self.own_projects = [x.project for x in self.request.user.tickets.all()]
 
