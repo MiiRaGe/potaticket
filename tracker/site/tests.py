@@ -5,7 +5,7 @@ from django.template import TemplateSyntaxError
 from django.test import RequestFactory, override_settings
 from django_webtest import WebTest
 
-from tracker.checks import check_csp_is_not_report_only, check_session_csrf_enabled
+from tracker.checks import check_csp_is_not_report_only, check_session_csrf_enabled, check_csp_sources_not_unsafe
 from tracker.site.models import Ticket, Project
 from tracker.site.views import update_project_view, update_ticket_view, create_ticket_view, delete_ticket_view, \
     my_tickets_view, create_project_view
@@ -147,3 +147,7 @@ class CheckTests(TestCase):
     @override_settings(CSP_REPORT_ONLY=False)
     def test_check_csp_report_is_missing(self):
         self.assertEqual(check_csp_is_not_report_only(), [])
+
+    @override_settings(CSP_DEFAULT_SRC=("'self'", "*.gstatic.com"))
+    def test_check_csp_sources_not_unsafe(self):
+        self.assertEqual(check_csp_sources_not_unsafe(), ['CSP_STYLE_SRC_UNSAFE'])
