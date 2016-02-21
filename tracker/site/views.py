@@ -178,4 +178,3 @@ class DeleteTicketView(ProjectContextMixin, DeleteView):
 
 
 delete_ticket_view = require_POST(login_required(DeleteTicketView.as_view()))
-

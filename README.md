@@ -60,7 +60,7 @@ Can you create a solution to solve this problem?  There is no right or wrong sol
 - Upgraded to django 1.8
 - Added config file to check for pep8:
 
-    - ```py.test --pep8```
+    - ```py.test --pep8 -m pep8 tracker```
 
 - Added clickable link for accessing project detail in project list.
 - Added continuous integration and coverage (with travis-ci and coveralls respectively).
