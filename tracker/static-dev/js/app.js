@@ -1,4 +1,4 @@
 $(document).foundation();
 $(document).ready(function () {
-    $('#id_assignees').chosen()
+    $('#id_assignees').chosen();
 });

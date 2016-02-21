@@ -7284,3 +7284,7 @@ th.hide-for-touch {
 
 #div_id_assignees {
   padding-bottom: 15px; }
+
+.delete-ticket-button {
+  padding: 1px 1px 4px 4px;
+  margin: 0; }

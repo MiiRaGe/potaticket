@@ -2125,5 +2125,5 @@ sticky_class:"sticky",custom_back_text:!0,back_text:"Back",mobile_show_parent_li
 
 $(document).foundation();
 $(document).ready(function () {
-    $('#id_assignees').chosen()
+    $('#id_assignees').chosen();
 });
