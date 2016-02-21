@@ -1,12 +1,14 @@
 from djangae.test import TestCase
+from django.contrib.auth.models import AnonymousUser
 from django.http import Http404
 from django.template import TemplateSyntaxError
 from django.test import RequestFactory, override_settings
 from django_webtest import WebTest
 
 from tracker.checks import check_csp_is_not_report_only, check_session_csrf_enabled
-from tracker.site.models import Ticket
-from tracker.site.views import update_project_view, update_ticket_view, create_ticket_view, delete_ticket_view
+from tracker.site.models import Ticket, Project
+from tracker.site.views import update_project_view, update_ticket_view, create_ticket_view, delete_ticket_view, \
+    my_tickets_view, create_project_view
 from tracker.site.factories import ProjectFactory, TicketFactory
 
 
@@ -42,6 +44,25 @@ class ProjectTest(TestCase):
             raise AssertionError('Template cannot render properly')
         self.assertIn(u'Submit', r.content.decode('utf8'))
 
+    def test_project_create_get(self):
+        # I'm unsure how to test with logged user using djangoae
+        # Using request factory to bypass that.
+        request = self.rf.get('/projects/create')
+        request.user = self.user
+        r = create_project_view(request)
+        self.assertEqual(r.status_code, 200)
+        r.render()
+        self.assertIn(u'Submit', r.content.decode('utf8'))
+
+    def test_project_create_post(self):
+        # I'm unsure how to test with logged user using djangoae
+        # Using request factory to bypass that.
+        request = self.rf.post('/projects/create', data={'title': 'New project'})
+        request.user = self.user
+        r = create_project_view(request)
+        self.assertEqual(r.status_code, 302)
+        self.assertTrue(Project.objects.filter(title='New project'))
+
 
 class TicketTest(TestCase):
     def setUp(self):
@@ -50,13 +71,25 @@ class TicketTest(TestCase):
         self.project = self.ticket.project
         self.rf = RequestFactory()
 
+    def test_my_tickets_not_authenticated(self):
+        request = self.rf.get('/')
+        request.user = AnonymousUser()
+        r = my_tickets_view(request)
+        self.assertEqual(r.status_code, 200)
+
+    def test_my_tickets_authenticated(self):
+        request = self.rf.get('/')
+        request.user = self.user
+        r = my_tickets_view(request)
+        self.assertEqual(r.status_code, 200)
+
     def test_switch_ticket_ownership(self):
-        # I'm unsure how to test with logged user using djangoae
-        # Using request factory to bypass that.
         project2 = ProjectFactory.create()
         self.assertNotEqual(project2.id, self.project.id)
 
         request = self.rf.get('/projects/%s/tickets/%s/edit' % (project2.id, self.ticket.id))
+        # I'm unsure how to test with logged user using djangoae
+        # Using request factory to bypass that.
         request.user = self.user
         self.assertRaises(Http404, update_ticket_view, request, project_id=project2.id, ticket_id=self.ticket.id)
 
