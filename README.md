@@ -9,6 +9,8 @@ Here's what I managed to do over the weekend.
 
 I'm not super happy about the responsiveness of the website, especially for super long title, truncate doesn't look like the right solution
 
+The usability haven't been touched much, the whole site feels not intuitive, clicking on the edit button for the project just edits the title, not the tickets.
+
 ## Tasks - bugs
 
 FIXED - Update a ticket - an internal server error occurs
