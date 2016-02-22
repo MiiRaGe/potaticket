@@ -1,17 +1,17 @@
-<table class="large-12">
+<table>
     <thead>
     <tr>
-        <th class="large-9">Project title</th>
-        <th class="large-3">Tickets</th>
+        <th width="1200">Project title</th>
+        <th>Tickets</th>
         <th></th>
     </tr>
     </thead>
     <tbody>
     {% for project in object_list %}
         <tr>
-            <td class="large-9"><a href="{% url "project-detail" project_id=project.id %}">{{ project.title }}</a>
+            <td><a href="{% url "project-detail" project_id=project.id %}">{{ project.title|truncatechars:50 }}</a>
             </td>
-            <td class="large-3">{{ project.tickets.all|length }}
+            <td>{{ project.tickets.all|length }}
             </td>
             <td>
                 <a href="{% url "project-update" project_id=project.pk %}">
