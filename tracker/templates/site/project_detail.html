@@ -41,13 +41,11 @@
                                 </a>
                             </td>
                             <td>
-                                {% if request.user.is_authenticated %}
                                 <form method="post"
                                       action="{% url "ticket-delete" project_id=project.pk ticket_id=ticket.pk %}">
                                     {% csrf_token %}
                                     <button type="submit" class="delete-ticket-button button fi-x"></button>
                                 </form>
-                                {% endif %}
                             </td>
                         </tr>
                     {% endfor %}

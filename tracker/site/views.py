@@ -119,7 +119,7 @@ class ProjectView(ProjectContextMixin, TemplateView):
         return context
 
 
-project_view = ProjectView.as_view()
+project_view = login_required(ProjectView.as_view())
 
 
 class CreateTicketView(ProjectContextMixin, CreateView):
