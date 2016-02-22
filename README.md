@@ -13,20 +13,20 @@ The usability haven't been touched much, the whole site feels not intuitive, cli
 
 ## Tasks - bugs
 
-FIXED - Update a ticket - an internal server error occurs
-FIXED - It is possible to move a ticket from one project to another by altering the URL on the edit ticket page. This should not be allowed
-FIXED - Tickets with long descriptions break the layout
+- FIXED: Update a ticket - an internal server error occurs
+- FIXED: It is possible to move a ticket from one project to another by altering the URL on the edit ticket page. This should not be allowed
+- FIXED: Tickets with long descriptions break the layout
 
 ## Tasks - new features
 
-DONE - On the ticket list page if there are no tickets show "No tickets have been created for this project"
-DONE - On the ticket list page if there are no users assigned to a ticket show "No assigned users" in the "assigned" field
-DONE - On the project list page, add a new column showing the count of how many tickets there are in each project
-DONE - On the project list page, projects that the user has assigned tickets on should be shown above the other projects
-DONE - In the edit ticket page show only the email address of each user in the "Assignees" input
-DONE - Add the ability to delete tickets
-DONE - Improve the multiselect for assignees on the edit ticket page. Consider using a library such as [Chosen](http://harvesthq.github.io/chosen/) to help with this
-DONE - Add a watch task to the default gulp task so that changes to any of the SCSS files result in the CSS files being updated
+- DONE: On the ticket list page if there are no tickets show "No tickets have been created for this project"
+- DONE: On the ticket list page if there are no users assigned to a ticket show "No assigned users" in the "assigned" field
+- DONE: On the project list page, add a new column showing the count of how many tickets there are in each project
+- DONE: On the project list page, projects that the user has assigned tickets on should be shown above the other projects
+- DONE: In the edit ticket page show only the email address of each user in the "Assignees" input
+- DONE: Add the ability to delete tickets
+- DONE: Improve the multiselect for assignees on the edit ticket page. Consider using a library such as [Chosen](http://harvesthq.github.io/chosen/) to help with this
+- DONE: Add a watch task to the default gulp task so that changes to any of the SCSS files result in the CSS files being updated
 
 
 ## Bonus tasks
