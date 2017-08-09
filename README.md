@@ -5,11 +5,9 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/MiiRaGe/potaticket/badge.svg?branch=master)](https://coveralls.io/github/MiiRaGe/potaticket?branch=master)
 
-Here's what I managed to do over the weekend.
+This project was a technical test for a job application, starting from a skeleton project with bugs the goal was to fix them.
 
-I'm not super happy about the responsiveness of the website, especially for super long title, truncate doesn't look like the right solution
-
-The usability haven't been touched much, the whole site feels not intuitive, clicking on the edit button for the project just edits the title, not the tickets.
+The bug fixing and extra features were done over a weekend.
 
 ## Tasks - bugs
 
@@ -27,11 +25,6 @@ The usability haven't been touched much, the whole site feels not intuitive, cli
 - DONE: Add the ability to delete tickets
 - DONE: Improve the multiselect for assignees on the edit ticket page. Consider using a library such as [Chosen](http://harvesthq.github.io/chosen/) to help with this
 - DONE: Add a watch task to the default gulp task so that changes to any of the SCSS files result in the CSS files being updated
-
-
-## Bonus tasks
-
-I haven't had time to look at that, however this is really intriging and I didn't know it would be so obvious when updating things.
 
 ## Side tasks
 
